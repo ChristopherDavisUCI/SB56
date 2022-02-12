@@ -30,7 +30,7 @@ def get_longest_reception(player_id, team):
                 # ignore nan values
                 pass
     rec_series = pd.Series(rec_dict, name="Yards")
-    return pd.Series(rec_dict)
+    return rec_series
 
 teams = ["LA", "CIN"] + sorted([team for team in df_schedule.home_team.unique() if team not in ["LA","CIN"]])
 
