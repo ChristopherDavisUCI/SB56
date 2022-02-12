@@ -19,4 +19,4 @@ df_wr = df_players[["player_name", "player_id"]][(df_players.position=="WR") & (
 
 wrs = df_wr.set_index("player_name")["player_id"]
 
-wr = st.selectbox("Receiver", wrs)
+wr = st.selectbox("Receiver", wrs.index)
