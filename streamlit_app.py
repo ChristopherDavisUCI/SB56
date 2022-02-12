@@ -25,6 +25,7 @@ def get_longest_reception(player_id, team):
         if len(df_temp2) > 0:
             ser = df_temp2.iloc[0]
             rec_dict[f"Week {ser['week']}"] = int(ser['receiving_yards'])
+    rec_series = pd.Series(rec_dict, name="Yards")
     return pd.Series(rec_dict)
 
 teams = ["LA", "CIN"] + sorted([team for team in df_schedule.home_team.unique() if team not in ["LA","CIN"]])
@@ -39,7 +40,7 @@ wr = st.selectbox("Receiver", wrs.index)
 
 rec_series = get_longest_reception(wrs[wr], team)
 
-st.write(f"The median longest reception for {wr} is {rec_series.median()}")
+st.write(f"The median longest reception for {wr} is {rec_series.median()} yards.")
 
 st.write(f"Longest reception by week for {wr}:")
 
@@ -47,4 +48,4 @@ st.write(rec_series)
 
 st.write("Sorted list of longest receptions:")
 
-st.write(sorted(rec_series.values, reverse=True))
+st.write(rec_series.sort_values(ascending=False))
