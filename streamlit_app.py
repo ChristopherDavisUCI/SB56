@@ -48,7 +48,7 @@ st.write(f"The median longest reception for {wr} is {rec_series.median()} yards.
 
 st.write(f"Longest reception by week for {wr}:")
 
-st.table(rec_series)
+st.dataframe(rec_series)
 
 st.write("Sorted list of longest receptions:")
 
