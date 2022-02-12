@@ -47,4 +47,4 @@ st.write(rec_series)
 
 st.write("Sorted list of longest receptions:")
 
-st.write(sorted(rec_dict.values, reverse=True))
+st.write(sorted(rec_series.values, reverse=True))
