@@ -3,20 +3,46 @@ import numpy as np
 import pandas as pd
 import nfl_data_py as nfl
 
-st.title("Super Bowl 56")
+st.title("Longest Receptions")
 
 df_schedule = nfl.import_schedules([2021])
 df_players = nfl.import_rosters([2021])
 df_pbp = nfl.import_pbp_data([2021]) #play-by-play
 
-st.write(df_pbp.head())
+def get_games(team):
+    return df_schedule.game_id[(df_schedule.home_team == team)|(df_schedule.away_team == team)]
 
-teams = ["LA", "CIN"] + [team for team in df_schedule.home_team.unique() if team not in ["LA","CIN"]]
+# Example: get_player_id("Chase","CIN")
+def get_player_id(player,team):
+    return df_players[(df_players.last_name==player) &(df_players.team == team)].player_id.item()
 
-team = st.selectbox("Team", teams)
+def get_longest_reception(player_id, team):
+    games = get_games(team)
+    rec_dict = {}
+    for game in games:
+        df_temp = df_pbp[df_pbp.game_id==game]
+        df_temp2 = df_temp[df_temp.receiver_player_id == player_id].sort_values("receiving_yards",ascending=False).copy()
+        if len(df_temp2) > 0:
+            ser = df_temp2.iloc[0]
+            rec_dict[f"Week {ser['week']}"] = ser['receiving_yards']
+    return rec_dict
+
+teams = ["LA", "CIN"] + sorted([team for team in df_schedule.home_team.unique() if team not in ["LA","CIN"]])
+
+team = st.selectbox("Team", teams, index=0)
 
 df_wr = df_players[["player_name", "player_id"]][(df_players.position=="WR") & (df_players.team==team)]
 
 wrs = df_wr.set_index("player_name")["player_id"]
 
 wr = st.selectbox("Receiver", wrs.index)
+
+rec_dict = get_longest_reception(wrs[wr], team)
+
+st.write(f"Longest reception by week for {wr}:")
+
+st.write(rec_dict)
+
+st.write("Sorted list of longest receptions:")
+
+st.write(sorted(x.values, reverse=True))
