@@ -13,4 +13,10 @@ st.write(df_pbp.head())
 
 teams = ["LA", "CIN"] + [team for team in df_schedule.home_team.unique() if team not in ["LA","CIN"]]
 
-st.write(teams)
+team = st.selectbox("Team", teams)
+
+df_wr = df_players[["player_name", "player_id"]][(df_players.position=="WR") & (df_players.team==team)]
+
+wrs = df_wr.set_index("player_name")["player_id"]
+
+wr = st.selectbox("Receiver", wrs)
