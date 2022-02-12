@@ -46,10 +46,12 @@ rec_series = get_longest_reception(wrs[wr], team)
 
 st.write(f"The median longest reception for {wr} is {rec_series.median()} yards.")
 
-st.write(f"Longest reception by week for {wr}:")
+col1, col2 = st.columns(2)
 
-st.dataframe(rec_series)
+with col1:
+    st.write(f"Longest reception by week for {wr}:")
+    st.table(rec_series)
 
-st.write("Sorted list of longest receptions:")
-
-st.write(rec_series.sort_values(ascending=False))
+with col2:
+    st.write("Sorted list of longest receptions:")
+    st.write(rec_series.sort_values(ascending=False))
