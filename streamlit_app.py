@@ -24,7 +24,11 @@ def get_longest_reception(player_id, team):
         df_temp2 = df_temp[df_temp.receiver_player_id == player_id].sort_values("receiving_yards",ascending=False).copy()
         if len(df_temp2) > 0:
             ser = df_temp2.iloc[0]
-            rec_dict[f"Week {ser['week']}"] = int(ser['receiving_yards'])
+            try:
+                rec_dict[f"Week {ser['week']}"] = int(ser['receiving_yards'])
+            except ValueError:
+                # ignore nan values
+                pass
     rec_series = pd.Series(rec_dict, name="Yards")
     return pd.Series(rec_dict)
 
