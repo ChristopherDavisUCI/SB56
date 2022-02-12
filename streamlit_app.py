@@ -10,3 +10,7 @@ df_players = nfl.import_rosters([2021])
 df_pbp = nfl.import_pbp_data([2021]) #play-by-play
 
 st.write(df_pbp.head())
+
+teams = ["LA", "CIN"] + [team for team in df_schedule.home_team.unique() if team not in ["LA","CIN"]]
+
+st.write(teams)
