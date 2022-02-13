@@ -16,7 +16,7 @@ def get_games(team):
 
 # Example: get_player_id("Chase","CIN")
 def get_player_id(player,team):
-    return df_players[(df_players.last_name==player) &(df_players.team == team)].player_id.item()
+    return df_players[(df_players.last_name==player) & (df_players.team == team)].player_id.item()
 
 def get_longest_reception(player_id, team):
     games = get_games(team)
@@ -38,7 +38,8 @@ teams = ["LA", "CIN"] + sorted([team for team in df_schedule.home_team.unique() 
 
 team = st.selectbox("Team", teams, index=0)
 
-df_wr = df_players[["player_name", "player_id"]][(df_players.position=="WR") & (df_players.team==team)]
+df_wr = df_players[["player_name", "player_id"]][(df_players.position=="WR" | 
+    df_players.position=="TE" | df_players.position=="RB") & (df_players.team==team)]
 
 wrs = df_wr.set_index("player_name")["player_id"]
 
