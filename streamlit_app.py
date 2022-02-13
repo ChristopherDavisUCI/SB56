@@ -5,6 +5,8 @@ import nfl_data_py as nfl
 
 st.title("Longest Receptions")
 
+st.write("Returns the longest reception for each week for the given player.")
+
 df_schedule = nfl.import_schedules([2021])
 df_players = nfl.import_rosters([2021])
 df_pbp = nfl.import_pbp_data([2021]) #play-by-play
@@ -44,7 +46,7 @@ wr = st.selectbox("Receiver", wrs.index)
 
 rec_series = get_longest_reception(wrs[wr], team)
 
-st.write(f"The median longest reception for {wr} is {rec_series.median()} yards.")
+st.markdown(f"The median longest reception for *{wr}* is {int(rec_series.median())} yards.")
 
 col1, col2 = st.columns(2)
 
