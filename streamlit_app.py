@@ -47,14 +47,18 @@ wr = st.selectbox("Receiver", wrs.index)
 
 rec_series = get_longest_reception(wrs[wr], team)
 
-st.markdown(f"The median longest reception for *{wr}* is {int(rec_series.median())} yards.")
+try: 
+    st.markdown(f"The median longest reception for *{wr}* is {int(rec_series.median())} yards.")
 
-col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2)
 
-with col1:
-    st.subheader(f"Longest reception by week for {wr}:")
-    st.table(rec_series)
+    with col1:
+        st.subheader(f"Longest reception by week for {wr}:")
+        st.table(rec_series)
 
-with col2:
-    st.subheader("Sorted list of longest receptions:")
-    st.table(rec_series.sort_values(ascending=False))
+    with col2:
+        st.subheader("Sorted list of longest receptions:")
+        st.table(rec_series.sort_values(ascending=False))
+
+except ValueError:
+    st.write("Choose a different player.")
