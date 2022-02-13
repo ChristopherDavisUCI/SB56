@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import nfl_data_py as nfl
 
-st.title("Longest Receptions")
+st.title("Longest weekly receptions in 2021 by player")
 
 st.write("Returns the longest reception for each week for the given player.")
 
