@@ -5,7 +5,8 @@ import nfl_data_py as nfl
 
 st.title("Longest weekly receptions in 2021 by player")
 
-st.write("Returns the longest reception for each week for the given player.")
+st.write('''Returns the longest reception for each week for the given player.
+Ignores weeks without a reception.''')
 
 df_schedule = nfl.import_schedules([2021])
 df_players = nfl.import_rosters([2021])
