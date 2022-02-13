@@ -57,7 +57,7 @@ try:
         st.table(rec_series)
 
     with col2:
-        st.subheader("Sorted list of longest receptions:")
+        st.subheader(f"Sorted list of longest receptions for {wr}:")
         st.table(rec_series.sort_values(ascending=False))
 
 except ValueError:
