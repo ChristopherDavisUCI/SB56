@@ -38,8 +38,8 @@ teams = ["LA", "CIN"] + sorted([team for team in df_schedule.home_team.unique() 
 
 team = st.selectbox("Team", teams, index=0)
 
-df_wr = df_players[["player_name", "player_id"]][(df_players.position=="WR" | 
-    df_players.position=="TE" | df_players.position=="RB") & (df_players.team==team)]
+df_wr = df_players[["player_name", "player_id"]][((df_players.position=="WR") | 
+    (df_players.position=="TE") | (df_players.position=="RB")) & (df_players.team==team)]
 
 wrs = df_wr.set_index("player_name")["player_id"]
 
